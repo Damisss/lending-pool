@@ -68,12 +68,14 @@ export const AccountStatus:FunctionComponent = ()=>{
     
     if(!isMetaMaskInstalled){
         return(
-            <CustomButton
-            className="h-full px-4 rounded-md mt-1 w-full text-white pt-1"
-            name='Install Metamask'
-            onClick={()=>window.open ('https://metamask.io', '_ blank')}
-            type='button'
-        /> 
+            <div className="border-solid border-2 border-white rounded-full px-2 h-3/4 py-1 mb-3 mt-2 hover:bg-blue-600 px-3">
+                <CustomButton
+                    className="h-full px-4 rounded-md mt-1 w-full text-white pt-1"
+                    name='Install Metamask'
+                    onClick={()=>window.open ('https://metamask.io', '_ blank')}
+                    type='button'
+                /> 
+            </div>
         )
     }
 
