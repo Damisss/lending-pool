@@ -52,102 +52,103 @@ export const MarketContainer:FunctionComponent = ()=>{
     const [isAccountLoading, setIsAccountLoading] = useState(false)
 
     useEffect(()=>{
-        const signer = provider.getSigner()
-       
         const prepareData = async()=>{
-            const {chainId} = await provider.getNetwork()
-            dispatch(getBalancesStart)
-            
-            const pools:poolData[] = []
-            const supplyData:poolData[] = []
-            const borrowData:poolData[]= []
-            let mySupplyBalance = 0
-            let myBorrowBalance = 0
-            
-            for(let item of data){
-                const contract = loadContract(item.token, ERC20_ABI)
-                const walletBalance = await contract.balanceOf(account)
-                const avaialableLiquidity = await contract.balanceOf(lendingPool.address)
-                const tokenSymbol = await contract.symbol()
-                const supplyBalance = await lendingPool.connect(signer).compoundedLiquidityOfUser(account,item.token)
-                const borrowBalance = await lendingPool.connect(signer).compoundedBorrowOfUser(account,item.token)
-                const liquidity = await lendingPool.connect(signer).getUsdValue(
-                    priceFeedAddresses[chainId][item.token],
-                    avaialableLiquidity
-                )
+            if(provider){
+                const signer = provider.getSigner()
+                const {chainId} = await provider.getNetwork()
+                dispatch(getBalancesStart)
                 
-                const supplyAmountInFiat = await lendingPool.connect(signer).getUsdValue(
-                    priceFeedAddresses[chainId][item.token],
-                    supplyBalance
-                )
+                const pools:poolData[] = []
+                const supplyData:poolData[] = []
+                const borrowData:poolData[]= []
+                let mySupplyBalance = 0
+                let myBorrowBalance = 0
                 
-                const borrowAmountInFiat = await lendingPool.connect(signer).getUsdValue(
-                    priceFeedAddresses[chainId][item.token],
-                    borrowBalance
-                )
-                
-                const walletBalanceInFiat = await lendingPool.connect(signer).getUsdValue(
-                    priceFeedAddresses[chainId][item.token],
-                    walletBalance
-                )
-                
-
-                mySupplyBalance += parseFloat(toEther(supplyAmountInFiat))
-                myBorrowBalance += parseFloat(toEther(borrowAmountInFiat))
-                console.log('myBorrowBalance', toEther(borrowBalance))
-                dispatch(getBalancesSuccess({
-                    tokenAddress: item.token,
-                    walletBalance: toEther(walletBalance),
-                    supplyBalance: toEther(supplyBalance),
-                    borrowBalance: toEther(borrowBalance),
-                    walletBalanceInUsd: toEther(walletBalanceInFiat),
-                    supplyBalanceInUsd: toEther(supplyAmountInFiat),
-                    borrowBalanceInUsd: toEther(borrowAmountInFiat)
-                }))
-                
-                if(parseFloat(toEther(supplyBalance)) > 0){
-                    supplyData.push({
+                for(let item of data){
+                    const contract = loadContract(item.token, ERC20_ABI)
+                    const walletBalance = await contract.balanceOf(account)
+                    const avaialableLiquidity = await contract.balanceOf(lendingPool.address)
+                    const tokenSymbol = await contract.symbol()
+                    const supplyBalance = await lendingPool.connect(signer).compoundedLiquidityOfUser(account,item.token)
+                    const borrowBalance = await lendingPool.connect(signer).compoundedBorrowOfUser(account,item.token)
+                    const liquidity = await lendingPool.connect(signer).getUsdValue(
+                        priceFeedAddresses[chainId][item.token],
+                        avaialableLiquidity
+                    )
+                    
+                    const supplyAmountInFiat = await lendingPool.connect(signer).getUsdValue(
+                        priceFeedAddresses[chainId][item.token],
+                        supplyBalance
+                    )
+                    
+                    const borrowAmountInFiat = await lendingPool.connect(signer).getUsdValue(
+                        priceFeedAddresses[chainId][item.token],
+                        borrowBalance
+                    )
+                    
+                    const walletBalanceInFiat = await lendingPool.connect(signer).getUsdValue(
+                        priceFeedAddresses[chainId][item.token],
+                        walletBalance
+                    )
+                    
+    
+                    mySupplyBalance += parseFloat(toEther(supplyAmountInFiat))
+                    myBorrowBalance += parseFloat(toEther(borrowAmountInFiat))
+        
+                    dispatch(getBalancesSuccess({
+                        tokenAddress: item.token,
+                        walletBalance: toEther(walletBalance),
+                        supplyBalance: toEther(supplyBalance),
+                        borrowBalance: toEther(borrowBalance),
+                        walletBalanceInUsd: toEther(walletBalanceInFiat),
+                        supplyBalanceInUsd: toEther(supplyAmountInFiat),
+                        borrowBalanceInUsd: toEther(borrowAmountInFiat)
+                    }))
+                    
+                    if(parseFloat(toEther(supplyBalance)) > 0){
+                        supplyData.push({
+                            token: item.token,
+                            status: item.status,
+                            tokenSymbol,
+                            liquidity:toEther(liquidity)
+                        })
+                    }
+    
+                    if(parseFloat(toEther(borrowBalance)) > 0){
+                        borrowData.push({
+                            token: item.token,
+                            status: item.status,
+                            tokenSymbol,
+                            liquidity:toEther(liquidity)
+                        })
+                    }
+                    pools.push({
                         token: item.token,
                         status: item.status,
                         tokenSymbol,
-                        liquidity:toEther(liquidity)
+                        liquidity: toEther(liquidity)
                     })
                 }
-
-                if(parseFloat(toEther(borrowBalance)) > 0){
-                    borrowData.push({
-                        token: item.token,
-                        status: item.status,
-                        tokenSymbol,
-                        liquidity:toEther(liquidity)
-                    })
-                }
-                pools.push({
-                    token: item.token,
-                    status: item.status,
-                    tokenSymbol,
-                    liquidity: toEther(liquidity)
-                })
+                
+                const supplyFinalData = pools.filter(item=>{
+                  const ind = supplyData.findIndex(d=>d.token === item.token)
+                  if(ind >= 0) return null
+                  return item
+                }).filter(Boolean)
+    
+                const borrowFinalData = pools.filter(item=>{
+                    const ind = borrowData.findIndex(d=>d.token === item.token)
+                    if(ind >= 0) return null
+                    return item
+                }).filter(Boolean)
+    
+                setSupplyData(supplyFinalData)
+                setBorrowData(borrowFinalData)
+                setYourSupplyData(supplyData)
+                setYourBorrowData(borrowData)
+                setTotalSupplyBalance(mySupplyBalance === 0 ? '': mySupplyBalance.toString())
+                setTotalBorrowBalance(myBorrowBalance === 0 ? '': myBorrowBalance.toString())
             }
-            
-            const supplyFinalData = pools.filter(item=>{
-              const ind = supplyData.findIndex(d=>d.token === item.token)
-              if(ind >= 0) return null
-              return item
-            }).filter(Boolean)
-
-            const borrowFinalData = pools.filter(item=>{
-                const ind = borrowData.findIndex(d=>d.token === item.token)
-                if(ind >= 0) return null
-                return item
-            }).filter(Boolean)
-
-            setSupplyData(supplyFinalData)
-            setBorrowData(borrowFinalData)
-            setYourSupplyData(supplyData)
-            setYourBorrowData(borrowData)
-            setTotalSupplyBalance(mySupplyBalance === 0 ? '': mySupplyBalance.toString())
-            setTotalBorrowBalance(myBorrowBalance === 0 ? '': myBorrowBalance.toString())
         }
         try {
             prepareData()
