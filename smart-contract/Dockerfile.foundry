@@ -1,0 +1,15 @@
+FROM node:16-alpine AS build
+#USER root
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+# Use the latest foundry image
+FROM ghcr.io/foundry-rs/foundry
+# Copy our source code into the container
+WORKDIR /app
+COPY --from=build /app/ ./
+# Build and test the source code
+RUN forge build
+
+

@@ -1,0 +1,30 @@
+{
+  "name": "smart-contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "hardhat:fork": "npx hardhat node --network hardhat",
+    "deploy:localhost": "npx hardhat run scripts/deploy.ts --network localhost",
+    "initPool":"npx hardhat run scripts/initPool.ts --network localhost",
+    "deploy:goerli": "npx hardhat run scripts/deploy.ts --network goerli",
+    "hardhat:test": "npx hardhat test test/LendingPool.ts --network hardhat"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "@nomiclabs/hardhat-etherscan": "^3.1.6",
+    "@openzeppelin/contracts-upgradeable": "^4.8.1",
+    "@openzeppelin/hardhat-upgrades": "^1.22.0",
+    "hardhat": "^2.12.5",
+    "hardhat-contract-sizer": "^2.8.0"
+  },
+  "dependencies": {
+    "@chainlink/contracts": "^0.5.1",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@openzeppelin/contracts": "^4.8.0",
+    "dotenv": "^16.0.3"
+  }
+}

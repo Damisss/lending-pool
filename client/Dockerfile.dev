@@ -1,0 +1,16 @@
+FROM node:16-alpine
+
+# RUN addgroup app && adduser -S -G app app
+# USER app
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+RUN npm install --save-dev typescript
+COPY . .
+
+EXPOSE 3000 
+RUN addgroup --system app && adduser --system -G app app
+RUN chown -R app:app /app && chmod -R 755 /app
+USER app
+CMD ["npm", "test"]

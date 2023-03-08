@@ -1,0 +1,64 @@
+version: "3.8"
+services:
+  client:
+    build: ./client
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+  
+  # hardhat:
+  #   build:
+  #     context: ./smart-contract
+  #     dockerfile: './Dockerfile.hardhat.test'
+  #   ports:
+  #     - 127.0.0.1:8545:8545
+  #   volumes:
+  #     - /app/node_modules
+  #     - ./smart-contract:/app
+  #   entrypoint: ["/bin/sh","-c"]
+  #   command:
+  #   - |
+  #       npm run hardhat:fork
+
+  hardhat-test:
+    build:
+      context: ./smart-contract
+      dockerfile: './Dockerfile.hardhat'
+    volumes:
+      - /app/node_modules
+      - ./smart-contract:/app
+    command: /bin/sh -c ./test.sh
+        
+  
+  foundry-test:
+    build:
+      context: ./smart-contract
+      dockerfile: './Dockerfile.foundry'
+    volumes:
+      - /app/node_modules
+      - ./smart-contract:/app
+    entrypoint:  ["forge", "test", "--mp", "test/foundry/LendingPool.t.sol", "--fork-url",  "https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}", "-vv"]
+
+  localhost:
+    build:
+      context: ./smart-contract
+      dockerfile: './Dockerfile.hardhat'
+    volumes:
+      - /app/node_modules
+      - ./smart-contract:/app
+    ports:
+      - 127.0.0.1:8545:8545
+    command: /bin/sh -c ./localhost.sh   
+        
+  
+  deploy-goerli:
+    build:
+      context: ./smart-contract
+      dockerfile: './Dockerfile.hardhat'
+    volumes:
+      - /app/node_modules
+      - ./smart-contract:/app
+    command: /bin/sh -c ./goerli.sh
+  
