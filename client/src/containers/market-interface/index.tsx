@@ -53,7 +53,7 @@ export const MarketContainer:FunctionComponent = ()=>{
 
     useEffect(()=>{
         const prepareData = async()=>{
-            if(provider){
+            if(provider && account){
                 const signer = provider.getSigner()
                 const {chainId} = await provider.getNetwork()
                 dispatch(getBalancesStart)

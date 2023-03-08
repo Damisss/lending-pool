@@ -60,7 +60,7 @@ export const AccountStatus:FunctionComponent = ()=>{
     }
 
     const closeAllDropdown = (e:any)=>{
-        if (!dropdownRef.current!.contains(e.target)) {
+        if (account.account && !dropdownRef.current!.contains(e.target)) {
             setIsAllDropdownClosed(true)
         }
        
@@ -68,9 +68,9 @@ export const AccountStatus:FunctionComponent = ()=>{
     
     if(!isMetaMaskInstalled){
         return(
-            <div className="border-solid border-2 border-white rounded-full px-2 h-3/4 py-1 mb-3 mt-2 hover:bg-blue-600 px-3">
+            <div className="border-solid border-2 border-white rounded-full px-2 h-3/2 mb-4 hover:bg-blue-600 px-0">
                 <CustomButton
-                    className="h-full px-4 rounded-md mt-1 w-full text-white pt-1"
+                    className="h-full rounded-full w-full text-white px-4 py-1 border-white"
                     name='Install Metamask'
                     onClick={()=>window.open ('https://metamask.io', '_ blank')}
                     type='button'
@@ -81,9 +81,9 @@ export const AccountStatus:FunctionComponent = ()=>{
 
     if(!isConnected){
         return(
-            <div className="border-solid border-2 border-white rounded-full px-2 h-3/4 py-1 mb-3 mt-2 hover:bg-blue-600 px-3">
+            <div className="border-solid border-2 border-white rounded-full px-2 h-3/2 mb-4 hover:bg-blue-600 px-0">
                     <CustomButton
-                    className="h-full px-4 rounded-md mt-1 w-full text-white pt-1"
+                    className="h-full rounded-full w-full text-white px-4 py-1 border-white"
                     name='Connect Wallet'
                     onClick={connectAccount}
                     type='button'
