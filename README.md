@@ -1,6 +1,9 @@
 # Lending Pool 
 The code in this project demostrates how to implement a full-stack decentralized pool-based lending protocol. Lenders can supply supported digital assets(ERC20 token) into protocol and earn interest on them. The deposited tokens in different pools will be available for borrowers to borrow. The loans are taken from pool's available liquidity. Hence, the interest pay by borrowers are proportionally distributed to lenders' balance. In other words lenders' earn are from interrest pay by borrowers. The lending contract is accessed via a transparant upgrade proxy smart contract.
 
+| :exclamation:  ** WARNING None of the contracts are audited!  |
+|-----------------------------------------|
+
 # Supply
 Whenever a lender deposits a supported digital asset into the protocol, it is added to Total Liquidity. It is determined by formula:
 
@@ -79,6 +82,8 @@ A certain percentage of the borrow interest will be allocated for Pool reserve a
 
 `Deposit Interest Rate = Borrow Interest Rate * Utilization Rate`
 
+# Demo online
+
 # Configure .env file:
 Create a .env file, and fill in the following values (refer to the .env.example file):
 - ALCHEMY_API_KEY="API_KEY_POLYGON_MAINNET"
@@ -88,7 +93,11 @@ Create a .env file, and fill in the following values (refer to the .env.example 
 - COINMARKETCAP="API_KEY_COIN_MARKET_CAP"
 
 # Run a demo locally
-
+- add sepolia testnet into your metamask wallet
+- open [http://localhost:3000](http://localhost:3000) to view it in the browser
+- select an asset then click on faucet in order to get some token
+- enable asset as collateral before borrowing any other assets
+  
 1. Clone the repo into a directory
 - cd into the directory
 - execute commands:
@@ -99,7 +108,7 @@ cd smart-contract
 npm install
 ```
 
-2. Deployment and run the (client app) front-end
+1. Deployment and run the (client app) front-end
 - cd into smart-contract
 - execute command:
 ```console
@@ -146,7 +155,7 @@ docker-compose up localhost
 docker-compose build client
 docker-compose up client
 ```
-- open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- open [linding protocol](https://sparkling-field-7889.on.fleek.co) to view it in the browser.
 
 # Run tests using hardhat
 - cd into smart-contract
@@ -195,9 +204,11 @@ docker-compose up deploy-sepolia
 ```
 Note: few steps are required in order to run the frontend using deployed smart contract in sepolia testnet. first you should verify the implementation contract (npx hardhat verify --network sepolia address), init the pool by running **npx hardhat run scripts/initPool.ts --network sepolia**. After that copy address from smart-contract/contracts-build-directory/lending-pool-contract/address.json then past it into client/src/contracts-build-directory/lending-pool-contract/address.json
 
-- [Contract](Address)
-- [Proxy Contract](0x77130531587232943e918d023AEA0270221ac3B3)
-- [Implementation Contract]( 0xca94f910209e7801c88a4c0474d6b765af643af0)
+|Contract Name|Adress|
+|-------------|-------------|
+|Proxy Contract|0x77130531587232943e918d023AEA0270221ac3B3|
+|Implementation Contract|0xca94f910209e7801c88a4c0474d6b765af643af0|
+
   
 # References
 https://github.com/smartcontractkit/defi-minimal
