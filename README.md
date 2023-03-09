@@ -83,7 +83,11 @@ A certain percentage of the borrow interest will be allocated for Pool reserve a
 `Deposit Interest Rate = Borrow Interest Rate * Utilization Rate`
 
 # Demo online
-
+- add sepolia testnet into your metamask wallet
+- open [linding protocol](https://sparkling-field-7889.on.fleek.co) to view it in the browser
+- select an asset then click on faucet in order to get some token
+- enable asset as collateral before borrowing any other assets
+  
 # Configure .env file:
 Create a .env file, and fill in the following values (refer to the .env.example file):
 - ALCHEMY_API_KEY="API_KEY_POLYGON_MAINNET"
@@ -93,11 +97,6 @@ Create a .env file, and fill in the following values (refer to the .env.example 
 - COINMARKETCAP="API_KEY_COIN_MARKET_CAP"
 
 # Run a demo locally
-- add sepolia testnet into your metamask wallet
-- open [http://localhost:3000](http://localhost:3000) to view it in the browser
-- select an asset then click on faucet in order to get some token
-- enable asset as collateral before borrowing any other assets
-  
 1. Clone the repo into a directory
 - cd into the directory
 - execute commands:
@@ -108,7 +107,7 @@ cd smart-contract
 npm install
 ```
 
-1. Deployment and run the (client app) front-end
+2. Deployment and run the (client app) front-end
 - cd into smart-contract
 - execute command:
 ```console
@@ -155,7 +154,7 @@ docker-compose up localhost
 docker-compose build client
 docker-compose up client
 ```
-- open [linding protocol](https://sparkling-field-7889.on.fleek.co) to view it in the browser.
+- open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 # Run tests using hardhat
 - cd into smart-contract
