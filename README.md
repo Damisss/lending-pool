@@ -82,8 +82,8 @@ A certain percentage of the borrow interest will be allocated for Pool reserve a
 # Configure .env file:
 Create a .env file, and fill in the following values (refer to the .env.example file):
 - ALCHEMY_API_KEY="API_KEY_POLYGON_MAINNET"
-- ALCHEMY_TESTNET_API_KEY="API_KEY_GOERLI"
-- GOERLI_PRIVATE_KEY="YOUR_PRIVATE_KEY" 
+- ALCHEMY_TESTNET_API_KEY="API_KEY_SEPOLIA"
+- PRIVATE_KEY="YOUR_PRIVATE_KEY" 
 - ETHERSCAN_API_KEY="API_KEY_ETHERSCAN"
 - COINMARKETCAP="API_KEY_COIN_MARKET_CAP"
 
@@ -186,22 +186,20 @@ docker-compose up hardhat-test
 docker-compose build foundry-test
 docker-compose up foundry-test
 ```
-# Run contract into goerli testnet
+# Run contract into sepolia testnet
 - cd into the project directory
 - execute commands:
 ```console
-docker-compose build deploy-goerli
-docker-compose up deploy-goerli
+docker-compose build deploy-sepolia
+docker-compose up deploy-sepolia
 ```
-Note: few steps are required in order to run the frontend using deployed smart contract in goerli testnet. first you should verify the implementation contract (npx hardhat verify --network goerli address), init the pool by running **npx hardhat run scripts/initPool.ts --network goerli**. After that copy address from smart-contract/contracts-build-directory/lending-pool-contract/address.json then past it into client/src/contracts-build-directory/lending-pool-contract/address.json
+Note: few steps are required in order to run the frontend using deployed smart contract in sepolia testnet. first you should verify the implementation contract (npx hardhat verify --network sepolia address), init the pool by running **npx hardhat run scripts/initPool.ts --network sepolia**. After that copy address from smart-contract/contracts-build-directory/lending-pool-contract/address.json then past it into client/src/contracts-build-directory/lending-pool-contract/address.json
 
 - [Contract](Address)
-- [Proxy Contract](0x46f3424e46fB374bCdF9e109aEE840F9064Df904)
-- [Implementation Contract](0xc7f626a6c1768e2cddfad5a373343855a6777281)
+- [Proxy Contract](0x77130531587232943e918d023AEA0270221ac3B3)
+- [Implementation Contract]( 0xca94f910209e7801c88a4c0474d6b765af643af0)
   
 # References
 https://github.com/smartcontractkit/defi-minimal
 https://github.com/Polygon-Academy/Tutorial-defi-tutorial
-https://github.com/AlphaFinanceLab/alpha-lending-smart-contract/blob/master/documents/Alpha%20Lending%20Whitepaper.pdf 
-11155111
-Sepolia
+https://github.com/AlphaFinanceLab/alpha-lending-smart-contract/blob/master/documents/Alpha%20Lending%20Whitepaper.pdf

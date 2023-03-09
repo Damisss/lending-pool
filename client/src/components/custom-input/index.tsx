@@ -4,7 +4,7 @@ type CustomInput = {
     id: string
     name: string
     value: string | number
-    onChange: ()=>{}
+    onChange: ()=>void
     type: string,
     label: string
     onMax?: ()=>void

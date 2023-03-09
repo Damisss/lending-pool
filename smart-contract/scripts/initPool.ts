@@ -60,12 +60,12 @@ const main = async ()=>{
         console.log(error)
     }
 
-    }else if(network.name === 'goerli'){
-        const provider = new ethers.providers.WebSocketProvider(`https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_TESTNET_API_KEY}`)
-        const signer = new ethers.Wallet(process.env.GOERLI_PRIVATE_KEY as string, provider)
+    }else if(network.name === 'sepolia'){
+        const provider = new ethers.providers.WebSocketProvider(`https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_TESTNET_API_KEY}`)
+        const signer = new ethers.Wallet(process.env.PRIVATE_KEY as string, provider)
         const lendingPool = new Contract(LENDING_POOL_ADDRESS, LENDING_POOL_CONTRACT_ABI, signer)
         
-        for(let item of initData.goerli){
+        for(let item of initData.sepolia){
             try {
                 const tx  =await lendingPool.connect(signer).initPool(
                     item.token, 

@@ -13,6 +13,7 @@ library AmountShareConvertor{
     using SafeMath for uint;
     using Math for uint256;
     using WadMath for uint256;
+    using Oracle for address;
 
     function depositAmountToShareAmount(
         Storage.Pool memory pool_,
@@ -104,14 +105,12 @@ library AmountShareConvertor{
         uint256 totalLiquidity_
 
     ) external view returns(uint256) {
-        uint256 liquidatedTokenPriceInUSD = Oracle.getUsdValue(
-            liquidatedTokenPool_.priceInUSDFeedAddress,
-            1e18
+        uint256 liquidatedTokenPriceInUSD = liquidatedTokenPool_.priceInUSDFeedAddress.getUsdValue(
+            WadMath.getWad() //1e18
         );
         
-        uint256 collateralTokenPriceInUSD = Oracle.getUsdValue(
-            collateralTokenPool_.priceInUSDFeedAddress,
-            1e18
+        uint256 collateralTokenPriceInUSD = collateralTokenPool_.priceInUSDFeedAddress.getUsdValue(
+            WadMath.getWad() //1e18
         );
 
         uint256 liquidationBonus = liquidatedTokenPool_.poolConfig.liquidationBonusPercent();

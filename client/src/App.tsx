@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 
-
 import {NavBar} from './components'
 import { AlertComponent } from './components/alert'
 import { ProcessingComponent } from './components/processing'

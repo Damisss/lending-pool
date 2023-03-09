@@ -1,4 +1,7 @@
 FROM node:16-alpine
+# RUN addgroup app && adduser -S -G app app
+# USER app
+
 USER root
 WORKDIR /app
 COPY package*.json ./

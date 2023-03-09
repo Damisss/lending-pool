@@ -15,6 +15,7 @@ error HasBorrowBalanceError();
 
 library LendingPoolHelper {
     using WadMath for uint256;
+    using AmountShareConvertor for Storage.Pool;
 
      function liquidationHelper(
         Storage.Pool memory liquidatedTokenPool_,
@@ -38,8 +39,7 @@ library LendingPoolHelper {
             closeFactor_
         );
 
-        uint256 collateralShare = AmountShareConvertor.getCollateralShare(
-            liquidatedTokenPool_,
+        uint256 collateralShare = liquidatedTokenPool_.getCollateralShare(
             collateralTokenPool_,
             liquidatedAmount,
             totalLiquidity_
@@ -56,8 +56,8 @@ library LendingPoolHelper {
         uint256 maxPurchaseAmount = userBorrowShare_.wadMul(closeFactor_);
         uint256 purchaseAmount = purchaseAmount_;
         if(purchaseAmount > maxPurchaseAmount) purchaseAmount = maxPurchaseAmount;
-        uint256 liquidatedAmount = AmountShareConvertor.shareAmountToBorrowAmount(
-            liquidatedTokenPool_, 
+
+        uint256 liquidatedAmount = liquidatedTokenPool_.shareAmountToBorrowAmount( 
             purchaseAmount
         );
         return (liquidatedAmount, purchaseAmount);

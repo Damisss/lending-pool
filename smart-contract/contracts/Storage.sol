@@ -54,7 +54,5 @@ abstract contract  Storage {
         address collateralToken, 
         uint256 purchaseAmount
     );
-
-    //event WithdrawReserve(address indexed token_, address indexed admin, uint256 amount);
   
 }

@@ -12,14 +12,17 @@ import { State } from '../../utils/types'
 import { 
     connectAccount, 
     customSubstring, 
-    getChainId, 
     loadContract, 
     provider, 
     toEther 
 } from '../../utils/helper'
 import { priceFeedAddresses } from '../../utils/config'
 import { poolsData } from '../../store/utils/custom-selector'
-import { getBalancesFail, getBalancesStart, getBalancesSuccess } from '../../store/actions/balance-actions'
+import { 
+    getBalancesFail, 
+    getBalancesStart, 
+    getBalancesSuccess 
+} from '../../store/actions/balance-actions'
 
 const ERC20_ABI = require('../../utils/IERC20.json').abi
 

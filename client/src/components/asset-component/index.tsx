@@ -184,13 +184,13 @@ export const AssetComponent:FunctionComponent<AssetComponent> = ({
             {
                 supply ? 
                 <CustomSwitch 
-                onModalShow={onModalShow} 
-                onClick={setIsCollateralEnabled} 
+                onModalShow={onModalShow}
                 isCollateralEnabled={isCollateralEnabled}
+                balance={currentBalances.walletBalance}
                 /> : 
                 <span className="font-semibold">
                     {
-                        currentBalances?.borrowBalance && +currentBalances.borrowBalance > 0 ?
+                        currentBalances.borrowBalance && +currentBalances.borrowBalance > 0 ?
                         `${showPrecentOfLimit()}%`:`$${liquidity&&millify(+liquidity)}`
                     }
                 </span>

@@ -7,7 +7,7 @@
     "hardhat:fork": "npx hardhat node --network hardhat",
     "deploy:localhost": "npx hardhat run scripts/deploy.ts --network localhost",
     "initPool":"npx hardhat run scripts/initPool.ts --network localhost",
-    "deploy:goerli": "npx hardhat run scripts/deploy.ts --network goerli",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.ts --network sepolia",
     "hardhat:test": "npx hardhat test test/LendingPool.ts --network hardhat"
   },
   "keywords": [],

@@ -23,5 +23,4 @@ export const rootReducer = combineReducers({
     setCollateral: setCollateralReducer,
     poolsData: getPoolsDataReducer,
     balances:balancesReducer
-
 })

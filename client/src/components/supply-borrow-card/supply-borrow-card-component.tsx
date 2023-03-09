@@ -70,7 +70,11 @@ export const SupplyBorrowCardComponent:FunctionComponent<SupplyBorrowCardCompone
     }
     
     const isFaucetDisplayed = ()=>{
-        if(chainId && chainId !== '31337' && selectedOption) return showFaucetConditions.includes(chainId) && showFaucetConditions.includes(selectedOption)
+        if(
+            chainId && 
+            chainId === '11155111' && 
+            selectedOption
+        ) return showFaucetConditions.includes(selectedOption)
         return false
     }
 

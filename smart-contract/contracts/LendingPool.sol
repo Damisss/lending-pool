@@ -34,6 +34,7 @@ contract LendingPool is OwnableUpgradeable, ReentrancyGuardUpgradeable, Storage 
     using SafeMath for uint256;
     using WadMath for uint256;
     using Math for uint256;
+    using Oracle for address;
 
     function initialize(address sTokenFacoryAddress_) external initializer{
         __Ownable_init();
@@ -130,7 +131,7 @@ contract LendingPool is OwnableUpgradeable, ReentrancyGuardUpgradeable, Storage 
             address token = _allowedTokens[i];
             if(_userData[account_][token].isCollateralActivated){
                 uint256 assetAmount = compoundedLiquidityOfUser(account_, token);
-                uint256 price = Oracle.getEthAmount(_pools[token].priceFeedAddress, assetAmount);
+                uint256 price = _pools[token].priceFeedAddress.getEthAmount(assetAmount);
                 uint256 adjustedCollateralFactor = price.wadMul(
                     _pools[token].poolConfig.liquidationThreshold()
                 );
@@ -146,7 +147,7 @@ contract LendingPool is OwnableUpgradeable, ReentrancyGuardUpgradeable, Storage 
         for(uint256 i = 0; i < _allowedTokens.length; i++){
             address token = _allowedTokens[i];
             uint256 assetAmount = compoundedBorrowOfUser(user_, token);
-            uint256 price = Oracle.getEthAmount(_pools[token].priceFeedAddress, assetAmount);
+            uint256 price = _pools[token].priceFeedAddress.getEthAmount(assetAmount);
             totalPrice += price;
         }
         
@@ -319,8 +320,8 @@ contract LendingPool is OwnableUpgradeable, ReentrancyGuardUpgradeable, Storage 
     ) external poolUpdate(liquidatedToken_) poolUpdate(collateralToken_) nonReentrant{
         require(healthFactor(user_) < 1e18);
         //CompilerError: Stack too deep
-        //assign params to variable trick help here (Not the cleanest to do). This approach may slightly increase gas amount. 
-        //Also splitting liquidation function into many functions fix the error. But it increase the contract size above limit (24KB)
+        //assign params to variable trick help here (Not the cleanest way to do, we will keep like that for this moment). This approach may slightly increase gas amount. 
+        //Also splitting liquidation function into many functions may fix the error. But this increases the contract size ( max limit 24KB)
         address user = user_;
         address collateralToken = collateralToken_;
         address liquidatedToken = liquidatedToken_;
@@ -389,7 +390,7 @@ contract LendingPool is OwnableUpgradeable, ReentrancyGuardUpgradeable, Storage 
         address priceFeedAddress_, 
         uint256 amount_
     ) external view returns(uint256){
-        return  Oracle.getUsdValue(priceFeedAddress_, amount_);
+        return  priceFeedAddress_.getUsdValue(amount_);
     }
 
 

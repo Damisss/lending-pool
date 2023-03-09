@@ -1,26 +1,25 @@
 import { FunctionComponent } from 'react'
 
-
 type CustomSwitch = {
     isCollateralEnabled: boolean
-    onClick?:(d:boolean)=>void
     onModalShow:(isCollateral:boolean, isSupply:boolean)=>void
+    balance:string
 }
 
 export const CustomSwitch:FunctionComponent<CustomSwitch> = ({
     isCollateralEnabled,
-    onClick,
+    balance,
     onModalShow
 })=>{
     return(
         <div 
             className="inline-flex relative justify-start items-center cursor-pointer" 
-            onClick={()=>onModalShow(true, false)}
+            onClick={+balance > 0 ? ()=>onModalShow(true, false): undefined}
         >
             <input
                 type="checkbox"
                 className="sr-only peer"
-                checked={isCollateralEnabled}
+                checked={isCollateralEnabled && +balance > 0}
                 readOnly
             />
             <div 

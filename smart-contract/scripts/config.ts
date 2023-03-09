@@ -1,14 +1,14 @@
 export const initData = {
-    goerli:[
+    sepolia:[
         {
-            token: '0x97c938f9f56Fb3aDE6432c636c0DD01D4c43Cd28', 
-            priceFeed:'0x779877A7B0D9E8603169DdbD7836e478b4624789',
-            priceInUsd:'0xA39434A63A52E749F02807ae27335515BA4b07F7'
+            token: '0x6A0b98D0762FE8c3aF3CF4F8e4BCD9806431e5D0', 
+            priceFeed:'0x5fb1616F78dA7aFC9FF79e0371741a747D2a7F22',
+            priceInUsd:'0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43'
         },
        {
-            token: '0x0D6F014535C9D83654D583a0eA898789Ee4F3874', 
-            priceFeed:'0xb4c4a493AB6356497713A78FFA6c60FB53517c63',
-            priceInUsd:'0x48731cF7e84dc94C5f84577882c14Be11a5B7456'
+            token: '0xE3Dbc9f08574464796Cb2d3679b932FC65FCF01D', 
+            priceFeed:'0x42585eD362B3f1BCa95c640FdFf35Ef899212734',
+            priceInUsd:'0xc59E3633BAAC79493d908e63626716e204A45EdF'
         }
     ]
 }

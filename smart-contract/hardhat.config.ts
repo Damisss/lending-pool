@@ -39,13 +39,10 @@ const config: HardhatConfig = {
 			},
 			allowUnlimitedContractSize:true,
 		},
-		goerli: {
-			url: `https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_TESTNET_API_KEY}`,
-			chainId: 5,
-			accounts: [process.env.GOERLI_PRIVATE_KEY as string],
-			gas: 30000000,
-			gasPrice: 50000000000,
-			minGasPrice: 25000000000
+		sepolia: {
+			url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_TESTNET_API_KEY}`,
+			chainId: 11155111,
+			accounts: [process.env.PRIVATE_KEY as string],
 		},
 		
 	},
