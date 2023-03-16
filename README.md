@@ -85,7 +85,7 @@ A certain percentage of the borrow interest will be allocated for Pool reserve a
 # Demo online
 - add sepolia testnet into your metamask wallet
 - get some sepolia ether here https://sepoliafaucet.com/
-- open [linding protocol](https://sparkling-field-7889.on.fleek.co) to view it in the browser
+- open [linding protocol](https://young-bonus-4925.on.fleek.co/) to view it in the browser
 - select an asset then click on faucet in order to get some token
 - enable asset as collateral before borrowing any other assets
   
