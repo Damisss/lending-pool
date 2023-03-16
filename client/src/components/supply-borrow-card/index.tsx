@@ -5,11 +5,18 @@ import { Contract, providers } from 'ethers'
 
 import { SupplyBorrowCardComponent } from './supply-borrow-card-component'
 import { formatAmount, loadContract, toWei } from '../../utils/helper'
-import { supplyStart, supplyFail } from '../../store/actions/supply-actions'
-import { alertFail, alertProcessing } from '../../store/actions/alert-actions'
-import { borrowFail, borrowStart } from '../../store/actions/borrow-actions'
-import { repayFail, repayStart } from '../../store/actions/repay-actions'
-import { withdrawFail, withdrawStart } from '../../store/actions/withdraw-actions'
+import { 
+    supplyStart, 
+    supplyFail, 
+    alertFail, 
+    alertProcessing, 
+    borrowFail, 
+    borrowStart,
+    repayFail, 
+    repayStart,
+    withdrawFail, 
+    withdrawStart
+} from '../../store/actions'
 
 const ERC20ABI = require('../../utils/IERC20.json').abi
 

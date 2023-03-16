@@ -1,3 +1,6 @@
 export {CustomButton} from './custom-button'
 export {NavBar} from './nav-bar-component'
 export {PanelHeaderComponent} from './panel-component/header'
+export {PanelComponent} from './panel-component'
+export {SupplyComponent} from './supply'
+export {BorrowComponent} from  './borrow-component'

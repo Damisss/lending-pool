@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { alertInit } from '../../store/actions/alert-actions'
+import { alertInit } from '../../store/actions'
 import { State } from '../../utils/types'
 
 type AlertComponent = {

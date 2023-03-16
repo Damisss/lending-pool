@@ -6,13 +6,11 @@ import { EnableCollateral } from '../enable-collateral-component'
 import { CustomSwitch } from '../custom-switch'
 import { Modal } from '../modal-component'
 import SupplyBorrowPanel from '../supply-borrow-card'
-import { alertFail, alertProcessing, alertSuccess } from '../../store/actions'
+import { alertFail, alertSuccess } from '../../store/actions'
 import { alertInit } from '../../store/actions/alert-actions'
-import { borrowSuccess } from '../../store/actions/borrow-actions'
 import { setCollateralLFail, setCollateralStart, setCollateralSuccess } from '../../store/actions/set-collateral-actions'
-import { withdrawSuccess } from '../../store/actions/withdraw-actions'
 import { borrowLimit } from '../../utils/config'
-import { customSubstring, getChainId, provider, subscribeToEvent } from '../../utils/helper'
+import { customSubstring, getChainId, provider } from '../../utils/helper'
 import { State } from '../../utils/types'
 import { AssetCard } from './asset-card'
 
@@ -38,7 +36,8 @@ export const AssetComponent:FunctionComponent<AssetComponent> = ({
     const {
         contract:{lendingPool},
         alert:{isSuccess}, 
-        balances:{balances, isLoaded},  
+        balances:{balances, isLoaded},
+        setCollateral  
     } = useSelector((state:State)=>state)
     const dispatch = useDispatch()
     const [isCollateralEnabled, setIsCollateralEnabled] = useState(false)
@@ -84,7 +83,6 @@ export const AssetComponent:FunctionComponent<AssetComponent> = ({
         try {
             onCloseButtonClicked()
             dispatch(setCollateralStart)
-            dispatch(alertProcessing('Transaction Pending'))
             const signer = provider.getSigner()
             const tx = await lendingPool.connect(signer).setCollateral(tokenAddress)
             await tx.wait()
@@ -156,9 +154,6 @@ export const AssetComponent:FunctionComponent<AssetComponent> = ({
             } ||{})
         }
 
-        subscribeToEvent(lendingPool, 'Withdraw', dispatch, withdrawSuccess)
-        subscribeToEvent(lendingPool, 'Borrow', dispatch, borrowSuccess)
-        
         return () => {
             document.removeEventListener('click', onCloseModal, true)
             window.clearTimeout(setTimeoutId)
@@ -186,7 +181,8 @@ export const AssetComponent:FunctionComponent<AssetComponent> = ({
                 <CustomSwitch 
                 onModalShow={onModalShow}
                 isCollateralEnabled={isCollateralEnabled}
-                balance={currentBalances.walletBalance}
+                balance={+currentBalances.walletBalance}
+                supplyBalance={+currentBalances.supplyBalance}
                 /> : 
                 <span className="font-semibold">
                     {

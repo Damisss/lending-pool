@@ -2,12 +2,13 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import { BigNumberish } from 'ethers'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { BorrowComponent } from '../../components/borrow-component'
-import { SupplyComponent } from '../../components/supply'
-import { PanelComponent } from '../../components/panel-component'
-
-import { PanelHeaderComponent } from '../../components'
-import { CustomButton } from '../../components'
+import { 
+    BorrowComponent,
+    SupplyComponent,
+    PanelComponent,
+    PanelHeaderComponent,
+    CustomButton
+} from '../../components'
 import { State } from '../../utils/types'
 import { 
     connectAccount, 
@@ -22,7 +23,7 @@ import {
     getBalancesFail, 
     getBalancesStart, 
     getBalancesSuccess 
-} from '../../store/actions/balance-actions'
+} from '../../store/actions'
 
 const ERC20_ABI = require('../../utils/IERC20.json').abi
 

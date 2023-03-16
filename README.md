@@ -84,6 +84,7 @@ A certain percentage of the borrow interest will be allocated for Pool reserve a
 
 # Demo online
 - add sepolia testnet into your metamask wallet
+- get some sepolia ether here https://sepoliafaucet.com/
 - open [linding protocol](https://sparkling-field-7889.on.fleek.co) to view it in the browser
 - select an asset then click on faucet in order to get some token
 - enable asset as collateral before borrowing any other assets
@@ -139,7 +140,7 @@ npm start
 docker-compose build localhost
 ```
 
-3. Deployment  and run the (client app) front-end
+2. Deployment  and run the (client app) front-end
 - cd into project directory
 - execute command:
 ```console
@@ -161,10 +162,9 @@ docker-compose up client
 - execute command:
 ```console
 npm run hardhat:fork
-```console
+```
 - open a new terminal 
 - cd smart-contract
-
 - execute command:
 ```console
 npm run hardhat:test
@@ -194,14 +194,14 @@ docker-compose up hardhat-test
 docker-compose build foundry-test
 docker-compose up foundry-test
 ```
-# Run contract into sepolia testnet
+# Deploy contract into sepolia testnet
 - cd into the project directory
 - execute commands:
 ```console
 docker-compose build deploy-sepolia
 docker-compose up deploy-sepolia
 ```
-Note: few steps are required in order to run the frontend using deployed smart contract in sepolia testnet. first you should verify the implementation contract (npx hardhat verify --network sepolia address), init the pool by running **npx hardhat run scripts/initPool.ts --network sepolia**. After that copy address from smart-contract/contracts-build-directory/lending-pool-contract/address.json then past it into client/src/contracts-build-directory/lending-pool-contract/address.json
+Note: few steps are required in order to run the frontend using deployed smart contract in sepolia testnet. first first cd to smart-contract directory. After that you should verify the implementation contract by executing this command **npx hardhat verify --network sepolia address** and then init the pool by running **npx hardhat run scripts/initPool.ts --network sepolia**. Copy address from smart-contract/contracts-build-directory/lending-pool-contract/address.json then past it into client/src/contracts-build-directory/lending-pool-contract/address.json
 
 |Contract Name|Adress|
 |-------------|-------------|

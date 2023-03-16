@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.17;
 
 import {IPoolConfigurator} from './interfaces/IPoolConfigurator.sol';
 import {ISToken} from './interfaces/ISToken.sol';

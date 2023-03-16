@@ -12,7 +12,10 @@ import {
   loadNetworkIdStart,
   loadNetworkIdSuccess,
   loadContractStart,
-  loadContractSuccess
+  loadContractSuccess,
+  borrowSuccess,
+  withdrawSuccess,
+  alertProcessing
 } from './store/actions'
 import { repaySuccess } from './store/actions/repay-actions';
 import { getPoolsFail, getPoolsSuccess } from './store/get-pools-actions';
@@ -75,7 +78,18 @@ function App() {
         if(state.repay.submitting){
           subscribeToEvent(lendingPool, 'Repay', dispatch, repaySuccess)
         }
- 
+        
+        if(state.withdraw.submitting){
+          subscribeToEvent(lendingPool, 'Withdraw', dispatch, withdrawSuccess)
+        }
+
+        if(state.borrow.submitting){
+          subscribeToEvent(lendingPool, 'Borrow', dispatch, borrowSuccess)
+        }
+
+        if(state.setCollateral.submitting){
+          dispatch(alertProcessing('Transaction Pending'))
+      }
         
       }
          
@@ -98,7 +112,14 @@ function App() {
   return ()=>{
     removeMetamaskEvents(metamaskEventHandler)
   }
-  },[state.network.chainId, state.supply.submitting, state.repay.submitting])
+  },[
+    state.network.chainId,
+    state.supply.submitting,
+    state.repay.submitting,
+    state.withdraw.submitting,
+    state.borrow.submitting,
+    state.setCollateral.submitting
+  ])
   
   return (
     <div className="bg-[#f7f7f9] h-screen">
