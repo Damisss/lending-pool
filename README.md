@@ -205,8 +205,8 @@ Note: few steps are required in order to run the frontend using deployed smart c
 
 |Contract Name|Adress|
 |-------------|-------------|
-|Proxy Contract|0x77130531587232943e918d023AEA0270221ac3B3|
-|Implementation Contract|0xca94f910209e7801c88a4c0474d6b765af643af0|
+|Proxy Contract|0x3DB66354317A80Ed38489dC3bA8148a304D07949|
+|Implementation Contract|0xd3bf5e325c4731d47eadddd0893884618219f102|
 
   
 # References
